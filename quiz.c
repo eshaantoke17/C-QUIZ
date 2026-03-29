@@ -124,14 +124,22 @@ void startQuiz() {
 
         printf("Enter answer (1-4): ");
         
-        // --- Added Input Validation ---
+        // --- 1. Validate if it's a number ---
         if (scanf("%d", &ans) != 1) {
-            printf("Error: Please enter a number (1, 2, 3, or 4).\n");
-            while(getchar() != '\n'); // Clears the bad input from memory
-            i--; // Asks the same question again
+            printf("Error: Invalid character! Please enter a number (1, 2, 3, or 4).\n");
+            while(getchar() != '\n'); // Clear buffer
+            i--; // Repeat the same question
             continue;
         }
 
+        // --- 2. Validate the range (New Logic for Option 5+) ---
+        if (ans < 1 || ans > 4) {
+            printf("Invalid Option! Please select a number between 1 and 4.\n");
+            i--; // Repeat the same question
+            continue;
+        }
+
+        // --- 3. Check for Correct/Wrong ---
         if(ans == q[i].correct) {
             printf("Correct!\n");
             score++;
